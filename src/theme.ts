@@ -1,7 +1,9 @@
-import { extendTheme, theme } from "@chakra-ui/react";
+import { extendTheme, theme, type ThemeConfig } from "@chakra-ui/react";
 
 export default extendTheme({
-    colors: {
-        primary: theme.colors.twitter,
-    },
+    
+colors: {
+    primary: theme.colors.twitter,
+}
 });
+
