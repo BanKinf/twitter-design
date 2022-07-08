@@ -31,11 +31,11 @@ export default extendTheme({
             },
             variants: {
                 solid: (props:any) => ({
-                    backgroundColor: `${props.colorScheme}.500`,
+                    backgroundColor: `${props.colorScheme}.600`,
                     color: mode(undefined, "white")(props),
                     fontWeight: "bold",
                     _hover: {
-                        backgroundColor: `${props.colorSchema}.600`,
+                        backgroundColor: `${props.colorScheme}.700`,
                     },
                 }),
             },
