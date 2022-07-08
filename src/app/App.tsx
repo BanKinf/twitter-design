@@ -4,7 +4,7 @@ import {Container, Stack, StackDivider, Box, Button} from "@chakra-ui/react";
 import Navbar from "./Navbar";
 import ProfileButton from "./ProfileButton";
 import Logo from "./Logo";
-import Routes from "./Routers";
+import Routes from "./Routes";
 
 const App: React.FC = () => {
   return (
