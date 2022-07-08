@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { 
     Box, 
     Button, 
@@ -8,8 +8,10 @@ import {
     Stack, 
     StackDivider, 
     Text, 
-    useColorMode
+    useColorMode,
+    useColorModeValue
 } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 import { FaTwitter } from "react-icons/fa";
 import {
     BsEnvelope,
@@ -20,61 +22,112 @@ import {
     BsList,
     BsPerson,
     BsThreeDots,
-} from "react-icons/bs"
+} from "react-icons/bs" // Outline (Inactive)
+import {
+    BsHouseFill,
+    BsBellFill,
+    BsEnvelopeFill,
+    BsBookmarkFill,
+    BsPersonFill,
+} from "react-icons/bs" // Filled (Active)
 
 interface Props {
     children: React.ReactNode;
 }
 
+interface ListLink {
+    href: string;
+    text: string;
+    activeIcon: IconType;
+    inactiveIcon: IconType;
+}
+
+const LINKS: ListLink[] = [
+    {
+        href: "/home",
+        text: "Inicio",
+        activeIcon : BsHouseFill,
+        inactiveIcon : BsHouse,
+    },
+    {
+        href: "/explore",
+        text: "Explorar",
+        activeIcon : BsHash,
+        inactiveIcon : BsHash,
+    },
+    {
+        href: "/notifications",
+        text: "Notificaciones",
+        activeIcon : BsBellFill,
+        inactiveIcon : BsBell,
+    },
+    {
+        href: "/messages",
+        text: "Mensajes",
+        activeIcon : BsEnvelopeFill,
+        inactiveIcon : BsEnvelope,
+    },
+    {
+        href: "/bookmarks",
+        text: "Guardados",
+        activeIcon : BsBookmarkFill,
+        inactiveIcon : BsBookmark,
+    },
+    {
+        href: "/lists",
+        text: "Listas",
+        activeIcon : BsList,
+        inactiveIcon : BsList,
+    },
+    {
+        href: "/profile",
+        text: "Perfil",
+        activeIcon : BsPersonFill,
+        inactiveIcon : BsPerson,
+    },
+    {
+        href: "/options",
+        text: "Más Opciones",
+        activeIcon : BsThreeDots,
+        inactiveIcon : BsThreeDots,
+    },
+];
+
 const Layout: React.FC<Props> = ({ children }) => {
     const { toggleColorMode } = useColorMode();
+    const { pathname } = useLocation();
+    const logoColor = useColorModeValue('primary.500', undefined);
 
     return (
         <Container height="100%" paddingX={0} alignSelf="center" maxWidth="container.md">
             <Stack direction="row" height="100%" divider={<StackDivider />}>
-                <Stack minWidth={72} paddingX={6} paddingY={3} spacing={8}>
-                    <Icon width={7} height={7} as={FaTwitter} onClick={toggleColorMode}/>
-                    <Stack fontWeight="bold" fontSize="xl" spacing={7}>
-                        <Link to={"/home"}>
-                            <Stack direction="row" alignItems="center" spacing={5}>
-                                <Icon as={BsHouse} width={6} height={6}/>
-                                <Text fontWeight="bold" fontSize="lg">Inicio</Text>
-                            </Stack>
-                        </Link>
-                        <Stack direction="row" alignItems="center" spacing={5}>
-                            <Icon as={BsHash} width={6} height={6}/>
-                            <Text fontWeight="bold" fontSize="lg">Explorar</Text>
+                <Stack justifyContent="space-between">
+                    <Stack minWidth={72} paddingX={6} paddingY={3} spacing={8}>
+                        <Icon color={logoColor} width={7} height={7} as={FaTwitter} onClick={toggleColorMode}/>
+                        <Stack fontWeight="bold" fontSize="xl" spacing={7}>
+                            {LINKS.map(link => (
+                            <Link to={link.href} key={link.href}>
+                                    <Stack 
+                                        direction="row" 
+                                        alignItems="center" 
+                                        spacing={5} 
+                                        color={pathname === link.href ? 'white.500' : 'inherit'}>
+                                    <Icon 
+                                        as={pathname === link.href ? link.activeIcon : link.inactiveIcon} width={6} 
+                                        height={6}/>
+                                    <Text 
+                                        fontWeight={pathname === link.href ? '700' : 'normal'}   fontSize="lg">{link.text}
+                                    </Text>
+                                </Stack>
+                             </Link>))}
                         </Stack>
-                        <Stack direction="row" alignItems="center" spacing={5}>
-                            <Icon as={BsBell} width={6} height={6}/>
-                            <Text fontWeight="bold" fontSize="lg">Notificaciones</Text>
-                        </Stack>
-                        <Link to={"/messages"}>
-                            <Stack direction="row" alignItems="center" spacing={5}>
-                                <Icon as={BsEnvelope} width={6} height={6}/>
-                                <Text fontWeight="bold" fontSize="lg">Mensajes</Text>
-                            </Stack>
-                        </Link>
-                        <Stack direction="row" alignItems="center" spacing={5}>
-                            <Icon as={BsBookmark} width={6} height={6}/>
-                            <Text fontWeight="bold" fontSize="lg">Guardados</Text>
-                        </Stack>
-                        <Stack direction="row" alignItems="center" spacing={5}>
-                            <Icon as={BsList} width={6} height={6}/>
-                            <Text fontWeight="bold" fontSize="lg">Listas</Text>
-                        </Stack>
-                        <Stack direction="row" alignItems="center" spacing={5}>
-                            <Icon as={BsPerson} width={6} height={6}/>
-                            <Text fontWeight="bold" fontSize="lg">Perfil</Text>
-                        </Stack>
-                        <Stack direction="row" alignItems="center" spacing={5}>
-                            <Icon as={BsThreeDots} width={6} height={6}/>
-                            <Text fontWeight="bold" fontSize="lg">Más opciones</Text>
-                        </Stack>
+                        <Button colorScheme="primary" size="lg" width="100%">
+                            Twittear
+                        </Button>
                     </Stack>
-                    <Button colorScheme="primary" size="lg" width="100%">
-                        Twittear
-                    </Button>
+                    <Stack>
+                        <Stack></Stack>
+                    </Stack>
                 </Stack>
                 <Box paddingX={4}>{children}</Box>
             </Stack>
