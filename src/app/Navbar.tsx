@@ -1,17 +1,19 @@
 import React from "react";
 import {Link, useLocation} from "react-router-dom";
-import {Icon, Stack, StackProps, Text} from "@chakra-ui/react";
+import {Icon, Stack, StackProps, Text, useColorModeValue} from "@chakra-ui/react";
 import {IconType} from "react-icons";
 import {
     BsEnvelope,
     BsHouse,
-    BsHash,
     BsBell,
     BsBookmark,
     BsList,
     BsPerson,
     BsThreeDots,
 } from "react-icons/bs"; // Outline (Inactive)
+import {
+  BiHash
+} from "react-icons/bi"
 import {
     BsHouseFill,
     BsBellFill,
@@ -38,8 +40,8 @@ const LINKS: ListLink[] = [
   {
     href: "/explore",
     text: "Explorar",
-    activeIcon: BsHash,
-    inactiveIcon: BsHash,
+    activeIcon: BiHash,
+    inactiveIcon: BiHash,
   },
   {
     href: "/notifications",
@@ -49,7 +51,7 @@ const LINKS: ListLink[] = [
   },
   {
     href: "/messages",
-    text: "Messages",
+    text: "Mensajes",
     activeIcon: BsEnvelopeFill,
     inactiveIcon: BsEnvelope,
   },
@@ -80,7 +82,7 @@ const LINKS: ListLink[] = [
 ];
 
 const Navbar: React.FC<StackProps> = (props) => {
-  const {pathname} = useLocation();
+  const {pathname} = useLocation()
 
   return (
     <Stack fontSize="xl" spacing={7} width="100%" {...props}>
@@ -88,7 +90,7 @@ const Navbar: React.FC<StackProps> = (props) => {
         <Link key={link.href} to={link.href}>
           <Stack
             alignItems="center"
-            color={pathname === link.href ? "white" : "inherit"}
+            color={pathname === link.href ? 'white.500' : 'inherit'}
             direction="row"
             spacing={5}
           >
@@ -106,3 +108,6 @@ const Navbar: React.FC<StackProps> = (props) => {
 };
 
 export default Navbar;
+
+// {pathname === link.href ? '700' : 'normal'}
+// color={pathname === link.href ? 'white.500' : 'inherit'}>

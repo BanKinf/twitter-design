@@ -1,5 +1,6 @@
 import { extendTheme, theme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
+import { BiLock } from "react-icons/bi";
 
 export default extendTheme({
     config: {
@@ -15,6 +16,14 @@ export default extendTheme({
                 color: mode(undefined, "whiteAlpha.800")(props),
                 height: "100%",
             },
+            TextArea: {
+                resize: "none",
+                display: "block",
+                height: "auto",
+                "&::-webkit-scrollbar": {
+                    display: "none",
+                }
+            }
         }),
     },
     components: {
@@ -25,7 +34,7 @@ export default extendTheme({
             },
             sizes: {
                 lg: {
-                    paddingY: 3,
+                    paddingY: 6,
                     fontSize: "md",
                 }
             },
@@ -36,6 +45,14 @@ export default extendTheme({
                     fontWeight: "bold",
                     _hover: {
                         backgroundColor: `${props.colorScheme}.700`,
+                    },
+                }),
+                outline: (props:any) => ({
+                    borderColor: `gray.500`,
+                    color: `${props.colorScheme}.500`,
+                    fontWeight: "bold",
+                    _hover: {
+                        borderColor: `${props.colorScheme}.600`,
                     },
                 }),
             },

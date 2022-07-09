@@ -22,7 +22,7 @@ const ProfileButton: React.FC<StackProps> = (props) => {
           <Text fontSize="sm" fontWeight="bold" lineHeight="normal">
             ElMiniop
           </Text>
-          <Text fontSize="xs" lineHeight="normal" textStyle="translucid">
+          <Text fontSize="xs" color="gray.500" lineHeight="normal" textStyle="translucid">
             @ElMiniop
           </Text>
         </Stack>
